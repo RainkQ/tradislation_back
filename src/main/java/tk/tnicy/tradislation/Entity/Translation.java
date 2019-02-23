@@ -1,14 +1,19 @@
 package tk.tnicy.tradislation.Entity;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 @Entity
 public class Translation {
     @Id
-    private int id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer translationId;
+
+    private Integer bigTypeId;
+    private Integer smallTypeId;
     private String BigType;
     private String SmallType;
     private String chi;
@@ -16,28 +21,28 @@ public class Translation {
     private String related;
     private String detail;
 
-    public String getDetail() {
-        return detail;
-    }
-
-    public void setDetail(String detail) {
+    public Translation(Integer translationId, Integer bigTypeId, Integer smallTypeId, String bigType, String smallType, String chi, String eng, String related, String detail) {
+        this.translationId = translationId;
+        this.bigTypeId = bigTypeId;
+        this.smallTypeId = smallTypeId;
+        BigType = bigType;
+        SmallType = smallType;
+        this.chi = chi;
+        this.eng = eng;
+        this.related = related;
         this.detail = detail;
     }
 
-    public String getRelated() {
-        return related;
+    public Translation() {
+
     }
 
-    public void setRelated(String related) {
-        this.related = related;
+    public Integer getTranslationId() {
+        return translationId;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    public void setTranslationId(Integer translationId) {
+        this.translationId = translationId;
     }
 
     public String getBigType() {
@@ -72,6 +77,37 @@ public class Translation {
         this.eng = eng;
     }
 
+    public String getRelated() {
+        return related;
+    }
+
+    public void setRelated(String related) {
+        this.related = related;
+    }
+
+    public String getDetail() {
+        return detail;
+    }
+
+    public void setDetail(String detail) {
+        this.detail = detail;
+    }
+
+    public Integer getBigTypeId() {
+        return bigTypeId;
+    }
+
+    public void setBigTypeId(Integer bigTypeId) {
+        this.bigTypeId = bigTypeId;
+    }
+
+    public Integer getSmallTypeId() {
+        return smallTypeId;
+    }
+
+    public void setSmallTypeId(Integer smallTypeId) {
+        this.smallTypeId = smallTypeId;
+    }
 
 
     //解码String 的 related 返回列表
