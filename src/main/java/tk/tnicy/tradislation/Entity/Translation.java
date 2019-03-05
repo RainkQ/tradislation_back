@@ -20,8 +20,12 @@ public class Translation {
     private String eng;
     private String related;
     private String detail;
+    private String spelling;
 
-    public Translation(Integer translationId, Integer bigTypeId, Integer smallTypeId, String bigType, String smallType, String chi, String eng, String related, String detail) {
+    public Translation() {
+    }
+
+    public Translation(Integer translationId, Integer bigTypeId, Integer smallTypeId, String bigType, String smallType, String chi, String eng, String related, String detail, String spelling) {
         this.translationId = translationId;
         this.bigTypeId = bigTypeId;
         this.smallTypeId = smallTypeId;
@@ -31,10 +35,7 @@ public class Translation {
         this.eng = eng;
         this.related = related;
         this.detail = detail;
-    }
-
-    public Translation() {
-
+        this.spelling = spelling;
     }
 
     public Integer getTranslationId() {
@@ -43,6 +44,22 @@ public class Translation {
 
     public void setTranslationId(Integer translationId) {
         this.translationId = translationId;
+    }
+
+    public Integer getBigTypeId() {
+        return bigTypeId;
+    }
+
+    public void setBigTypeId(Integer bigTypeId) {
+        this.bigTypeId = bigTypeId;
+    }
+
+    public Integer getSmallTypeId() {
+        return smallTypeId;
+    }
+
+    public void setSmallTypeId(Integer smallTypeId) {
+        this.smallTypeId = smallTypeId;
     }
 
     public String getBigType() {
@@ -93,25 +110,16 @@ public class Translation {
         this.detail = detail;
     }
 
-    public Integer getBigTypeId() {
-        return bigTypeId;
+    public String getSpelling() {
+        return spelling;
     }
 
-    public void setBigTypeId(Integer bigTypeId) {
-        this.bigTypeId = bigTypeId;
+    public void setSpelling(String spelling) {
+        this.spelling = spelling;
     }
-
-    public Integer getSmallTypeId() {
-        return smallTypeId;
-    }
-
-    public void setSmallTypeId(Integer smallTypeId) {
-        this.smallTypeId = smallTypeId;
-    }
-
 
     //解码String 的 related 返回列表
-    public ArrayList<String> getRelatedString(){
+    public ArrayList<String> geetRelatedString() {
 
         ArrayList<String> strings = new ArrayList<>();
         String[] rels = related.split(" ");
@@ -126,7 +134,7 @@ public class Translation {
 
     public boolean addRelated(String rel) {
         try {
-            ArrayList<String> relate = getRelatedString();
+            ArrayList<String> relate = geetRelatedString();
             relate.add(rel);
             return true;
         } catch (Exception e) {

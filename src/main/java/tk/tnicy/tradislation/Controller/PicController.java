@@ -1,21 +1,21 @@
 package tk.tnicy.tradislation.Controller;
 
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.util.Base64Utils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 
 @RestController
 public class PicController {
-
-
-
 
 
     @GetMapping("/pic/{chi}")
@@ -46,4 +46,20 @@ public class PicController {
         String ret = new String(encode, StandardCharsets.UTF_8);
         return  ret;// 返回Base64编码过的字节数组字符串
     }
+
+
+    @GetMapping(value = "/img/{chi}", produces = MediaType.IMAGE_PNG_VALUE)
+    public ResponseEntity<Resource> getImgs(@PathVariable("chi") String chi) throws FileNotFoundException {
+        InputStream inputStream = new FileInputStream(new File("tradislation_pic/" + chi + ".png"));
+        InputStreamResource inputStreamResource = new InputStreamResource(inputStream);
+        HttpHeaders headers = new HttpHeaders();
+        return new ResponseEntity<>(inputStreamResource, headers, HttpStatus.OK);
+    }
+
+
 }
+
+
+
+
+
