@@ -18,16 +18,7 @@ import java.nio.charset.StandardCharsets;
 public class PicController {
 
 
-    @GetMapping("/pic/{chi}")
-    public String getPic(@PathVariable("chi") String chi) {
-        String ret = getImageBinary("tradislation_pic/" + chi + ".png");
-        if (ret!=null&&!ret.isEmpty()) {
-            return getImageBinary("tradislation_pic/" + chi + ".png");
-        }
-        return "";
-    }
-
-    static String getImageBinary(String address){
+    static String getImageBinary(String address) {
         String imgFile = address;// 待处理的图片
         InputStream in = null;
         byte[] data = null;
@@ -44,7 +35,16 @@ public class PicController {
 
         byte[] encode = Base64Utils.encode(data);
         String ret = new String(encode, StandardCharsets.UTF_8);
-        return  ret;// 返回Base64编码过的字节数组字符串
+        return ret;// 返回Base64编码过的字节数组字符串
+    }
+
+    @GetMapping("/pic/{chi}")
+    public String getPic(@PathVariable("chi") String chi) {
+        String ret = getImageBinary("tradislation_pic/" + chi + ".png");
+        if (ret != null && !ret.isEmpty()) {
+            return getImageBinary("tradislation_pic/" + chi + ".png");
+        }
+        return "";
     }
 
 
@@ -56,7 +56,22 @@ public class PicController {
         return new ResponseEntity<>(inputStreamResource, headers, HttpStatus.OK);
     }
 
-
+    @GetMapping("/pic/search/{chi}")
+    public int searchPicNumber(@PathVariable("chi") String chi) {
+        int count = 0;
+        String path = "tradislation_pic";        //要遍历的路径
+        File file = new File(path);        //获取其file对象
+        File[] fs = file.listFiles();    //遍历path下的文件和目录，放在File数组中
+        assert fs != null;
+        for (File f : fs) {                    //遍历File[]数组
+            if (!f.isDirectory()) {    //若非目录(即文件)
+                if (f.getName().contains(chi)) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
 }
 
 
