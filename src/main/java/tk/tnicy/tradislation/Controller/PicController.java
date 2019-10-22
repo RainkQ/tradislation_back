@@ -65,7 +65,7 @@ public class PicController {
         assert fs != null;
         for (File f : fs) {                    //遍历File[]数组
             if (!f.isDirectory()) {    //若非目录(即文件)
-                if (f.getName().startsWith(chi)) {
+                if (f.getName().matches(chi + "\\d[\\s\\S]*")) {
                     count++;
                 }
             }
